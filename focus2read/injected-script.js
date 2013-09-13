@@ -9,12 +9,12 @@ var canvas2= document.getElementById("canvas2");
 screen_width=screen.width;
 screen_height=screen.height;
 /////////controlling variables
-var R=0; var G=128; var B=192; var alpha=0.05;
+var R=255; var G=255; var B=255; var alpha=0.05;
 var scroll_responding=1;
-var transparancy=30;
+var transparancy=100;
 var reading_area=20;
 var reading_area_scale=2;
-
+var lastTime_overIcon=new Date();
 
 initialize_script();
 //##########################################################
@@ -37,7 +37,7 @@ function initialize_script(){
 		var canvas1_code = "<canvas id=\"canvas1\" width=\""+screen_width+"\" height=\""+screen_height+"\" style=\"position:fixed; top:-700px; right:0px; left:0px;z-index:10000;\" > </canvas>";
 		var canvas2_code = "<canvas id=\"canvas2\" width=\""+screen_width+"\" height=\""+screen_height+"\" style=\"position:fixed; top:360px; right:0px; left:0px;z-index:10000;\" > </canvas>";
 		var settings_icon= "<div width=\"10\" height=\"10\" id=\"settings_icon\"  style=\"width:40px; height:40px; position:fixed; top:12px; right:10px; px;z-index:10100;\"><img src=\""+icon_URL+"\"> </div>";
-		var settings_code= "<div id=\"settings\" style=\"display:none; width:250px; height:250px; position:fixed; top:40px; right:10px; px;z-index:10100;\"> 	<p class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 Colorpicker :	 </p>	<div id=\"red\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 100%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 100%; \"></a></div><div id=\"green\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 54.90196078431373%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 54.90196078431373%; \"></a></div><div id=\"blue\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 23.52941176470588%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 23.52941176470588%; \"></a></div><div id=\"swatch\" class=\"ui-widget-content ui-corner-all\" style=\"background-color: rgb(255, 140, 60); \"></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Transparency :</label>	 </p><div id=\"transparency_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Focus range :</label>	 </p><div id=\"Focus_range_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div></div>"
+		var settings_code= "<div id=\"settings\" style=\" display:none; width:250px; height:320px; position:fixed; top:40px; right:10px; px;z-index:10100;\"> 	<p class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 Colorpicker :	 </p>	<div id=\"red\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 100%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 100%; \"></a></div><div id=\"green\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 54.90196078431373%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 54.90196078431373%; \"></a></div><div id=\"blue\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 23.52941176470588%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 23.52941176470588%; \"></a></div><div id=\"swatch\" class=\"ui-widget-content ui-corner-all\" style=\"background-color: rgb(255, 140, 60); \"></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Transparency :</label>	 </p><div id=\"transparency_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Focus range :</label>	 </p><div id=\"Focus_range_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div></div>"
 		var everything_div = "<div id=\"everything_div\" >" + canvas1_code + canvas2_code + settings_icon +settings_code + "</div>";
 		_body.innerHTML = everything_div + _body.innerHTML;
 		document.getElementById('settings_icon').onmouseover=function(e){	settings(e)	};
@@ -135,6 +135,8 @@ function setSettings()
 		 $( "#settings" ).show("blind", options, "slow");
 		}
 		else {
+			curDate= new Date();
+			if((curDate - lastTime_overIcon) >1000)
 			$( "#settings" ).hide("blind", options, "slow");
 		}
 		pausecomp(200);
@@ -144,7 +146,7 @@ function setSettings()
 	
 	function checkOut(event)
 	{
-		if(event.clientX<document.getElementById('settings').offsetLeft || event.clientY>(document.getElementById('settings').offsetTop+250))
+		if(event.clientX<document.getElementById('settings').offsetLeft || event.clientY>(document.getElementById('settings').offsetTop+320))
 		{
 			settings();
 		}
@@ -277,7 +279,7 @@ return ;
 			
 		}				
 		$(function() {
-			$( "#red, #green, #blue" ).slider({	orientation: "horizontal",	range: "min",	max: 255,	value: 127,	stop: refreshSwatch	,slide:refreshColorTemplate,creat: refreshSwatch	});	
+			$( "#red, #green, #blue" ).slider({	orientation: "horizontal",	range: "min",	max: 255,	value: 255,	stop: refreshSwatch	,slide:refreshColorTemplate,creat: refreshSwatch	});	
 			$( "#red" ).slider( "value", R );
 			$( "#green" ).slider( "value", G );
 			$( "#blue" ).slider( "value", B );	});
