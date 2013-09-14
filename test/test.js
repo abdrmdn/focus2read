@@ -39,11 +39,13 @@ function initialize_script(){
 		var canvas1_code = "<canvas id=\"canvas1\" width=\""+screen_width+"\" height=\""+screen_height+"\" style=\"position:fixed; top:-700px; right:0px; left:0px;z-index:10000;\" > </canvas>";
 		var canvas2_code = "<canvas id=\"canvas2\" width=\""+screen_width+"\" height=\""+screen_height+"\" style=\"position:fixed; top:360px; right:0px; left:0px;z-index:10000;\" > </canvas>";
 		var settings_icon= "<div width=\"10\" height=\"10\" id=\"settings_icon\"  style=\"width:40px; height:40px; position:fixed; top:12px; right:10px; px;z-index:10100;\"><img src=\""+icon_URL+"\"> </div>";
-		var settings_code= "<div id=\"settings\" style=\" display:none; width:250px; height:320px; position:fixed; top:40px; right:10px; px;z-index:10100;\"> 	<p class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 Colorpicker :	 </p>	<div id=\"red\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 100%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 100%; \"></a></div><div id=\"green\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 54.90196078431373%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 54.90196078431373%; \"></a></div><div id=\"blue\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 23.52941176470588%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 23.52941176470588%; \"></a></div><div id=\"swatch\" class=\"ui-widget-content ui-corner-all\" style=\"background-color: rgb(255, 140, 60); \"></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Transparency :</label>	 </p><div id=\"transparency_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Focus range :</label>	 </p><div id=\"Focus_range_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div></div>"
-		var everything_div = "<div id=\"everything_div\" >" + canvas1_code + canvas2_code + settings_icon +settings_code + "</div>";
+		var _settings_background="<div id='settings_background' style='position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; background-color: rgb(65, 63, 63); opacity: 0.4; border-radius: 2%;'></div>";
+		var _settings= "<div id=\"settings\" style='margin: 10px;'> 	<p class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 Colorpicker :	 </p>	<div id=\"red\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 100%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 100%; \"></a></div><div id=\"green\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 54.90196078431373%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 54.90196078431373%; \"></a></div><div id=\"blue\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 23.52941176470588%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 23.52941176470588%; \"></a></div><div id=\"swatch\" class=\"ui-widget-content ui-corner-all\" style=\"background-color: rgb(255, 140, 60); \"></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Transparency :</label>	 </p><div id=\"transparency_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div><p  class=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding: 4px;\">	 <label for=\"amount\">Focus range :</label>	 </p><div id=\"Focus_range_slider\" class=\"ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"><div class=\"ui-slider-range ui-widget-header ui-slider-range-min\" style=\"width: 5.150214592274678%; \"></div><a class=\"ui-slider-handle ui-state-default ui-corner-all\" href=\"#\" style=\"left: 5.150214592274678%; \"></a></div></div>";
+		var settings_block= "<div id='settings_block' style='display:none; width:270px; height:320px; position:fixed; top:40px; right:10px; px;z-index:10100;'>"+_settings_background+_settings+"</div>";
+		var everything_div = "<div id=\"everything_div\" >" + canvas1_code + canvas2_code + settings_icon +settings_block + "</div>";
 		_body.innerHTML = everything_div + _body.innerHTML;
 		document.getElementById('settings_icon').onmouseover=function(e){	settings(e)	};
-		document.getElementById('settings').onmouseout=function(e){	checkOut(e);};
+		document.getElementById('settings_block').onmouseout=function(e){	checkOut(e);};
 		$("#settings_icon_image").attr("src",icon_URL);
 		draw();	
 		///#####################################				
@@ -151,18 +153,18 @@ function setSettings()
 	function settings(event)
 	{
 		
-		var settings_div=document.getElementById('settings');
+		var settings_div=document.getElementById('settings_block');
 		var stat=settings_div.style.display;
 
 		var options={};
 		if(stat=="none"){ 
-		 $( "#settings" ).show("blind", options, "slow");
+		 $( "#settings_block" ).show("blind", options, "slow");
 		 lastTime_overIcon=new Date();
 		}
 		else {
 			curDate= new Date();
 			if((curDate - lastTime_overIcon) >1000)
-			$( "#settings" ).hide("blind", options, "slow");
+			$( "#settings_block" ).hide("blind", options, "slow");
 		}
 		
 		
@@ -171,7 +173,7 @@ function setSettings()
 	
 	function checkOut(event)
 	{
-		if(event.clientX<document.getElementById('settings').offsetLeft || event.clientY>(document.getElementById('settings').offsetTop+320))
+		if(event.clientX<document.getElementById('settings_block').offsetLeft || event.clientY>(document.getElementById('settings_block').offsetTop+320))
 		{
 			settings();
 		}
