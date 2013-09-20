@@ -84,35 +84,22 @@ function initialize_script(){
 //##########################################################
 /////initiailizing the style settings 
 //##########################################################
-//cookies functions
-function setCookie(c_name,value,exdays)
+//HTML5 LocalStorage functions
+function setExtensionParameters(c_name,value)
 {
-var exdate=new Date();
-exdate.setDate(exdate.getDate() + exdays);
-var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-document.cookie=c_name + "=" + c_value;
+localStorage[c_name]=value;
 }
-function getCookie(c_name)
+function getExtensionParameters(c_name)
 {
-var i,x,y,ARRcookies=document.cookie.split(";");
-for (i=0;i<ARRcookies.length;i++)
-{
-  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-  x=x.replace(/^\s+|\s+$/g,"");
-  if (x==c_name)
-    {
-    return unescape(y);
-    }
-  }
+return localStorage[c_name];
 }
 //initializeSettings:: 
 function initializeSettings(){
-var red_value=getCookie("focuseSettingsRED");
-var green_value=getCookie("focuseSettingsGREEN");
-var blue_value=getCookie("focuseSettingsBLUE");
-var reading_area_value=getCookie("focuseSettingsREADINGAREA");
-var transparancy_value=getCookie("focuseSettingsTRANSPERANCY");
+var red_value=getExtensionParameters("ChExtParameters_RED");
+var green_value=getExtensionParameters("ChExtParameters_GREEN");
+var blue_value=getExtensionParameters("ChExtParameters_BLUE");
+var reading_area_value=getExtensionParameters("ChExtParameters_READINGAREA");
+var transparancy_value=getExtensionParameters("ChExtParameters_TRANSPERANCY");
   if (red_value!=null && green_value!=null && blue_value!=null )
   {
   R=red_value; 
@@ -125,22 +112,22 @@ else
   {
   if (red_value!=null )
     {
-    setCookie("focuseSettingsRED",R,365);
-	setCookie("focuseSettingsGREEN",G,365);
-	setCookie("focuseSettingsBLUE",B,365);
-	setCookie("focuseSettingsREADINGAREA",reading_area,365);
-	setCookie("focuseSettingsTRANSPERANCY",transparancy,365);
+    setExtensionParameters("ChExtParameters_RED",R);
+	setExtensionParameters("ChExtParameters_GREEN",G);
+	setExtensionParameters("ChExtParameters_BLUE",B);
+	setExtensionParameters("ChExtParameters_READINGAREA",reading_area);
+	setExtensionParameters("ChExtParameters_TRANSPERANCY",transparancy);
     }
   }	
 }
 //save new settings
 function setSettings()
 {
-	setCookie("focuseSettingsRED",R,365);
-	setCookie("focuseSettingsGREEN",G,365);
-	setCookie("focuseSettingsBLUE",B,365);
-	setCookie("focuseSettingsREADINGAREA",reading_area,365);
-	setCookie("focuseSettingsTRANSPERANCY",transparancy,365);
+	setExtensionParameters("ChExtParameters_RED",R);
+	setExtensionParameters("ChExtParameters_GREEN",G);
+	setExtensionParameters("ChExtParameters_BLUE",B);
+	setExtensionParameters("ChExtParameters_READINGAREA",reading_area);
+	setExtensionParameters("ChExtParameters_TRANSPERANCY",transparancy);
 }
 
 //##########################################################
